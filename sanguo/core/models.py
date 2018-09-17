@@ -30,6 +30,20 @@ class WeaponModel(object):
 
 
 class CityModel(object):
+    """
+    城市信息
+    """
     def __init__(self, id, name):
         self.id = id
         self.name = name
+
+    def __unicode__(self):
+        return '<{}>{}'.format(self.id, self.name)
+
+
+class PowerModel(object):
+    """
+    势力
+    """
+    def __init__(self, general, color):
+        pass
