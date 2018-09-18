@@ -1,15 +1,11 @@
 # coding:utf-8
 
+from .view import View
 
-class Scene(object):
-	"""
-	场景类
-	"""
-	def __init__(self):
-		pass
 
-	def update(self, surface, dt):
-		print(dt)
+class Scene(View):
+    """A view that takes up the entire window content area."""
 
-	def event(self, event):
-		pass
+    def __init__(self, width=800, height=600):
+        View.__init__(self,width, height)
+

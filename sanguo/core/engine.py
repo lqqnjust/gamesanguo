@@ -6,38 +6,46 @@ from pygame.locals import *
 
 
 class Game(object):
-	def __init__(self, width, height, fps, title):
-		pygame.init()
-		pygame.font.init()
-		self.surface = pygame.display.set_mode((width, height))
+    def __init__(self, width=800, height=600, fps=60, title=""):
+        pygame.init()
 
-		self.fps = fps
-		self.running = True
-		self.black = Color(0, 0, 0, 255)
-		pygame.display.set_caption(title)
+        self.width = width
+        self.height = height
 
-		self.load_resource()
+        self.fps = fps
+        self.title = title
+        self.window_size = (self.width, self.height)
 
-		self.scene = None
+        self.scene = None
+        self.scenes = []
+        self.window_surface = pygame.display.set_mode(self.window_size)
+        pygame.display.set_caption(title)
 
-	def run(self):
-		clock = pygame.time.Clock()
-		while self.running:
-			clock.tick(self.fps)
+    def run(self, scene):
+        self.scene = scene
+        clock = pygame.time.Clock()
+        while True:
+            clock.tick(self.fps)
 
-			for event in pygame.event.get():
-				if event.type == QUIT:
-					sys.exit(0)
-				else:
-					self.scene.event(event)
+            for event in pygame.event.get():
+                if event.type == QUIT:
+                    sys.exit(0)
 
-			self.surface.fill(self.black)
-			self.scene.update(self.surface, clock.get_time())
 
-			pygame.display.flip()
+            self.scene.update(clock.get_time())
+            self.scene.draw()
+            self.window_surface.blit(self.scene.surface, (0, 0))
 
-	def load_resource(self):
-		pass
+            pygame.display.flip()
 
-	def set_scene(self, scene):
-		self.scene = scene
+    def place(self, scene):
+        self.scene = scene
+
+    def push(self, scene):
+        self.scenes.append(self.scene)
+        self.scene = scene
+
+    def pop(self):
+        self.scene = self.scenes.pop()
+
+
