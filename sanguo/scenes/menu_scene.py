@@ -13,14 +13,6 @@ class MenuScene(Scene):
     def __init__(self, *children):
         super().__init__(*children)
 
-        # label = cocos.text.Label(
-        #     'Hello, world中文',
-        #     font_name=u'LiSu',
-        #     font_size=32,
-        #     anchor_x='center', anchor_y='center'
-        # )
-        # label.position = 320, 240
-        # self.add(label)
 
         l = []
         l.append(MenuItem(u"开始", self.on_new_game))
@@ -29,6 +21,7 @@ class MenuScene(Scene):
         self.menu = Menu()
         # self.menu.font_item['font_name'] = 'LiSu'
         # self.menu.font_item_selected['font_name']= 'LiSu'
+        self.menu.font_item['font_size'] = 24
         self.menu.create_menu(l)
         self.add(self.menu)
 
