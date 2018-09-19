@@ -1,10 +1,17 @@
 # coding:utf-8
-from sanguo.core.engine import Game
-from sanguo.scenes import MenuScene
+import logging
+
+from cocos.director import director
+from sanguo.scenes.menu_scene import MenuScene
+
+
+FORMAT = '%(asctime)-15s %(clientip)s %(user)-8s %(message)s'
+logging.basicConfig(format=FORMAT)
+logger = logging.getLogger('tcpserver')
+
 
 
 if __name__ == '__main__':
-    game = Game(800, 600, 60, "三国")
+    director.init()
     scene = MenuScene()
-    game.set_scene(scene)
-    game.run()
+    director.run(scene)

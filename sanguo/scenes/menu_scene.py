@@ -1,30 +1,41 @@
 # coding:utf-8
 
 import os
+import logging
 
-from sanguo.ui.label import Label
-import pygame
+from cocos.scene import Scene
+from cocos.menu import Menu, MenuItem
+from cocos.text import Label
 
-from sanguo.core.scene import Scene
-
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+logger = logging.getLogger(__name__)
 
 class MenuScene(Scene):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *children):
+        super().__init__(*children)
 
-        # self.font = pygame.font.Font(os.path.join(BASE_DIR,'resource/fonts/SIMLI.TTF'), 60)
-        # # self.font = pygame.font.SysFont('楷体', 60)
-        # self.ext_surface = self.font.render(u"123中文", True, (120, 130, 220))
-        # self.add(self.ext_surface)
-        self.label = Label(os.path.join(BASE_DIR,'resource/fonts/SIMLI.TTF'), u"123中文",60)
-        self.label.x = 100
-        self.label.y = 100
+        # label = cocos.text.Label(
+        #     'Hello, world中文',
+        #     font_name=u'LiSu',
+        #     font_size=32,
+        #     anchor_x='center', anchor_y='center'
+        # )
+        # label.position = 320, 240
+        # self.add(label)
 
-        self.add(self.label)
+        l = []
+        l.append(MenuItem(u"开始", self.on_new_game))
+        l.append(MenuItem(u"继续", self.on_continue))
 
+        self.menu = Menu()
+        # self.menu.font_item['font_name'] = 'LiSu'
+        # self.menu.font_item_selected['font_name']= 'LiSu'
+        self.menu.create_menu(l)
+        self.add(self.menu)
 
+    def on_new_game(self):
+        logger.info("new game")
 
+    def on_continue(self):
+        logger.info("continue game")
 
 

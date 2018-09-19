@@ -54,3 +54,4 @@ class DataManager(object):
         pass
 
 
+datamanager = DataManager()
