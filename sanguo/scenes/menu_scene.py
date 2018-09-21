@@ -4,10 +4,13 @@ import os
 import logging
 
 from cocos.scene import Scene
-from cocos.menu import Menu, MenuItem
-from cocos.text import Label
+from cocos.menu import Menu
+
+from .menu import IconMenuItem
+
 
 logger = logging.getLogger(__name__)
+
 
 class MenuScene(Scene):
     def __init__(self, *children):
@@ -15,8 +18,10 @@ class MenuScene(Scene):
 
 
         l = []
-        l.append(MenuItem(u"开始", self.on_new_game))
-        l.append(MenuItem(u"继续", self.on_continue))
+        # l.append(MenuItem(u"开始", self.on_new_game))
+        # l.append(MenuItem(u"继续", self.on_continue))
+        l.append(IconMenuItem(u'开始',self.on_new_game))
+        l.append(IconMenuItem(u'继续', self.on_continue))
 
         self.menu = Menu()
         # self.menu.font_item['font_name'] = 'LiSu'

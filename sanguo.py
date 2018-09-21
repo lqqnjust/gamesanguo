@@ -24,4 +24,5 @@ if __name__ == '__main__':
 
 
     scene = BattleScene()
+    # scene = MenuScene()
     director.run(scene)

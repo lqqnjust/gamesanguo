@@ -1,7 +1,8 @@
 # coding:utf-8
 from cocos.scene import Scene
 
-from .layers.battle_layer import BattleLayer
+from .layer import BattleLayer
+from .layer import GeneralInfoLayer
 
 class BattleScene(Scene):
     def __init__(self, *children):
@@ -9,3 +10,13 @@ class BattleScene(Scene):
 
         layer = BattleLayer()
         self.add(layer)
+
+        from sanguo.datamanager.datamanager import DataManager
+
+        dm = DataManager()
+        dm.load_common()
+
+        generalmodel = dm.generals[0]
+
+        infolayer = GeneralInfoLayer(generalmodel)
+        self.add(infolayer)

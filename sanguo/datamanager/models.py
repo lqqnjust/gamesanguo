@@ -1,8 +1,12 @@
 # coding:utf-8
 
-'''
-数据模型
-'''
+
+# 出仕
+GENERAL_OFFICE = 0
+# 在野
+GENERAL_OUT = 1
+# 死亡
+GENERAL_DIE = 2
 
 
 class GeneralModel(object):
@@ -41,6 +45,13 @@ class GeneralModel(object):
     def __str__(self):
         return '{}<{}>'.format(self.name, self.id)
 
+    def die(self):
+        """
+        死亡
+        :return:
+        """
+        self.state = GENERAL_DIE
+
 
 
 
@@ -77,4 +88,21 @@ class PowerModel(object):
     势力
     """
     def __init__(self, general, color):
-        pass
+        self.starter = general
+        self.inheritor = general
+
+        self.generals = [general]
+
+    def set_inheritor(self, general):
+        """
+        设置继承人
+        :param general:
+        :return:
+        """
+        self.inheritor = general
+
+    def add_general(self, general):
+        self.generals.append(general)
+
+    def del_general(self, general):
+        self.generals.remove(general)

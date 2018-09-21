@@ -4,8 +4,9 @@ import pyglet
 
 from cocos.layer import Layer
 from cocos.actions import MoveBy
+from cocos.text import Label
 
-from sanguo.battle.Solder import Solder,DIRECTION_LEFT,DIRECTION_RIGHT,DIRECTION_UP,DIRECTION_DOWN
+from .sprites.Solder import *
 
 
 class BattleLayer(Layer):
@@ -14,35 +15,35 @@ class BattleLayer(Layer):
     def __init__(self):
         super().__init__()
 
-        self.solder = Solder(0, 0, 0,(24,24))
+        self.solder = Solder(DIRECTION_RIGHT, SOLDER_UNIT_TYPE_BUBING_RED, (24,24), None)
 
-        self.add(self.solder.sprite)
+        self.add(self.solder)
 
     def on_key_press(self, key, modifiers):
         keystr = pyglet.window.key.symbol_string(key)
         print(keystr)
         if keystr == "RIGHT":
             self.solder.set_direction(DIRECTION_RIGHT)
-            self.solder.sprite.do(MoveBy((48,0),0.5))
+            self.solder.do(MoveBy((48,0),0.5))
         elif keystr == "UP":
             self.solder.set_direction(DIRECTION_UP)
-            self.solder.sprite.do(MoveBy((0, 48), 0.5))
+            self.solder.do(MoveBy((0, 48), 0.5))
         elif keystr == "DOWN":
             self.solder.set_direction(DIRECTION_DOWN)
-            self.solder.sprite.do(MoveBy((0, -48), 0.5))
+            self.solder.do(MoveBy((0, -48), 0.5))
         elif keystr == "LEFT":
             self.solder.set_direction(DIRECTION_LEFT)
-            self.solder.sprite.do(MoveBy((-48, 0), 0.5))
+            self.solder.do(MoveBy((-48, 0), 0.5))
         elif keystr == "K":
-            self.solder.set_atk(0)
-            self.solder.set_direction(0)
+            self.solder.atk_ani(self.solder.direction)
+            #self.solder.set_direction(0)
 
 
+class GeneralInfoLayer(Layer):
+    def __init__(self, generalmodel):
+        super().__init__()
+        self.generalmodel = generalmodel
 
+        name = Label(self.generalmodel.name, (30, 60))
 
-
-
-
-
-
-
+        self.add(name)
