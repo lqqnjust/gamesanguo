@@ -9,17 +9,32 @@ DIRECTION_DOWN = 2
 DIRECTION_LEFT =3
 
 
-SOLDER_UNIT_TYPE_BUBING_RED = 1
+UNIT_TYPE_BU = 1
+UNIT_TYPE_GONG = 2
+UNIT_TYPE_QI = 3
+UNIT_TYPE_JIANG = 4
+
+UNIT_COLOR_RED = 1
+UNIT_COLOR_BLUE = 2
 
 
 class Solder(Sprite):
-    def __init__(self, direction, unit_type, position, soldermodel):
+    def __init__(self, direction, unit_type,unit_color, unit_level, position, value):
+        """
+
+        :param direction:  方向DIRECTION
+        :param unit_type:  类型UNIT_TYPE
+        :param unit_color:  颜色UNIT_COLOR
+        :param position:   位置
+        :param soldermodel: 将领数据
+        """
         self.direction = direction
         self.unit_type = unit_type
-        self.soldermodel = soldermodel
+        self.unit_color = unit_color
+        self.unit_level = unit_level
 
-        image_mov = pyglet.resource.image('Unit_mov_{}-1.png'.format(self.unit_type))
-        image_atk = pyglet.resource.image('Unit_atk_{}-1.png'.format(self.unit_type))
+        image_mov = pyglet.resource.image('solders/mov_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
+        image_atk = pyglet.resource.image('solders/atk_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
 
         tileset = pyglet.image.ImageGrid(image_mov, 11, 1, 48, 48)
         tileset_atk = pyglet.image.ImageGrid(image_atk, 12, 1, 64, 64)

@@ -5,6 +5,7 @@ import pyglet
 from cocos.layer import Layer
 from cocos.actions import MoveBy
 from cocos.text import Label
+from cocos.tiles import load
 
 from .sprites.Solder import *
 
@@ -15,8 +16,12 @@ class BattleLayer(Layer):
     def __init__(self):
         super().__init__()
 
-        self.solder = Solder(DIRECTION_RIGHT, SOLDER_UNIT_TYPE_BUBING_RED, (24,24), None)
+        self.solder = Solder(DIRECTION_RIGHT,UNIT_COLOR_BLUE, UNIT_COLOR_BLUE,3, (24,24), 100)
 
+        tmxmap = load('water.tmx')
+        layer = tmxmap['layer1']
+        layer.set_view(0, 0, 800, 600)
+        self.add(layer)
         self.add(self.solder)
 
     def on_key_press(self, key, modifiers):
