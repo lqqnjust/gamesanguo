@@ -8,3 +8,6 @@ if __name__ == '__main__':
     print(len(dm.generals))
     for g in dm.generals:
         print(g.__dict__)
+
+    for city in dm.cities:
+        print(city.__dict__)

@@ -4,6 +4,7 @@ from cocos.scene import Scene
 from .layer import BattleLayer
 from .layer import GeneralInfoLayer
 
+
 class BattleScene(Scene):
     def __init__(self, *children):
         super().__init__(*children)

@@ -1,12 +1,54 @@
 # coding:utf-8
+from typing import List
+from enum import Enum
 
 
-# 出仕
-GENERAL_OFFICE = 0
-# 在野
-GENERAL_OUT = 1
-# 死亡
-GENERAL_DIE = 2
+# 剑
+WEAPON_TYPE_SWORD = 0
+# 刀
+WEAPON_TYPE_KNIFE = 1
+# 矛
+WEAPON_TYPE_SPEAR = 2
+# 防具
+WEAPON_TYPE_ARMOR = 3
+
+
+class WeaponModel(object):
+    """
+    武器防具数据信息
+    """
+    def __init__(self):
+        self.id: str = None
+        # 名称
+        self.name: str = None
+        # 类型剑刀矛防
+        self.type: int = None
+        # 攻击值或者防御值
+        self.value: int = None
+        # 商店价格
+        self.price: int = None
+        # 重量
+        self.weight: int = None
+
+    def __str__(self):
+        return self.name
+
+    def __unicode__(self):
+        return self.name
+
+class GeneralStatus(Enum):
+    # 仕官
+    OFFICE = 0
+    # 在野
+    UNOFFICE = 1
+    DIE = 2
+
+
+State_Dict = {
+    "仕官": GeneralStatus.OFFICE,
+    "在野": GeneralStatus.UNOFFICE
+}
+
 
 
 class GeneralModel(object):
@@ -14,33 +56,31 @@ class GeneralModel(object):
     武将数据信息
     """
     def __init__(self):
-        self.id = 0
-        self.name = None
+        self.id: str = None
+        self.name: str = None
 
-        self.max_hp = 100
-        self.cur_hp = 100
+        self.max_hp: int = 100
+        self.cur_hp: int = 100
         # 武力
-        self.atk = 100
+        self.atk: int = 100
         # 智力
-        self.intelligence = 100
+        self.intelligence: int = 100
         # 品德
-        self.morality =  100
+        self.morality: int = 100
         # 忠诚
-        self.loyal = 100
+        self.loyal: int = 100
         # 经验
-        self.exp = 0
+        self.exp: int = 0
         # 等级
-        self.level = 1
+        self.level: int = 1
         # 士兵数
-        self.solders = 1000
+        self.solders: int = 1000
         # 状态 (在野，出仕，死亡，等待）
-        self.state = 0
-        # 跟随某个武将出仕
-        self.follow = None
-        # 所在城市
-        self.city = None
-        # 所属势力
-        self.power = None
+        self.state = GeneralStatus.UNOFFICE
+        # 武器
+        self.weapon: WeaponModel = None
+        # 防具
+        self.armor: WeaponModel = None
 
     def __str__(self):
         return '{}<{}>'.format(self.name, self.id)
@@ -50,50 +90,21 @@ class GeneralModel(object):
         死亡
         :return:
         """
-        self.state = GENERAL_DIE
-
-
-
-
-class WeaponModel(object):
-    """
-    武器防具数据信息
-    """
-    def __init__(self, id, name, type, value, price):
-        self.id = id
-        self.name = name
-        self.type = type
-        self.value = value
-        self.price = price
-
-
-class CityModel(object):
-    """
-    城市信息
-    """
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
-        # 当前
-        self.generals = []
-        # 在野
-        self.out_generals = []
-
-    def __unicode__(self):
-        return '<{}>{}'.format(self.id, self.name)
+        self.state = GeneralStatus.DIE
 
 
 class PowerModel(object):
     """
     势力
     """
-    def __init__(self, general, color):
-        self.starter = general
-        self.inheritor = general
 
-        self.generals = [general]
+    def __init__(self, general: GeneralModel):
+        self.starter: GeneralModel = general
+        self.inheritor: GeneralModel = general
 
-    def set_inheritor(self, general):
+        self.inheritor_list: List[GeneralModel] = []
+
+    def set_inheritor(self, general: GeneralModel):
         """
         设置继承人
         :param general:
@@ -101,8 +112,98 @@ class PowerModel(object):
         """
         self.inheritor = general
 
-    def add_general(self, general):
-        self.generals.append(general)
 
-    def del_general(self, general):
-        self.generals.remove(general)
+
+
+
+class CityModel(object):
+    """
+    城市信息
+    """
+    def __init__(self):
+        self.id: str = None
+        self.name: str = None
+
+        # 金钱
+        self.money: int = 0
+        # 粮食
+        self.food: int = 0
+
+        # 农业 0-999
+        self.farming: int = 0
+        # 经济贸易 0-999
+        self.business: int = 0
+        # 人口 0-99900
+        self.population: int = 0
+        # 城防 0-100
+        self.defence: int = 0
+        # 治安统治度 0-100
+        self.security: int = 0
+        # 预备兵
+        self.redif: int = 100
+        # 所属势力
+        self.power: PowerModel = None
+
+        # 宝
+        self.treasure = 0
+
+        # 买米价格
+        self.buy_price = 0
+        # 卖米价格
+        self.sold_price = 0
+
+        # 当前
+        self.generals :List[GeneralModel] = []
+        # 在野
+        self.out_generals = []
+
+    def __unicode__(self):
+        return '<{}>{}'.format(self.id, self.name)
+
+    def leader(self):
+        """
+        获取太守
+        :return:
+        """
+        if len(self.generals) == 0:
+            return None
+        else:
+            return self.generals[0]
+
+    def power(self) -> PowerModel:
+        """
+        获取势力
+        :return:
+        """
+        if self.power is None:
+            return None
+        else:
+            return self.power.inheritor
+
+    def change_leader(self, idx: int):
+        """
+        交换太守
+        :param idx: 新的将领的城市内索引
+        :return:
+        """
+        tmp = self.generals[idx]
+        self.generals[idx] = self.generals[0]
+        self.generals[0] = tmp
+
+    @property
+    def total_solders(self) -> int:
+        total = 0
+        for general in self.generals:
+            total += general.solders
+        return total
+
+
+
+
+
+class GlobalModel(object):
+    """
+    全局配置
+    """
+    def __init__(self):
+        self.start_year: int = None
