@@ -10,9 +10,7 @@ class BattleScene(Scene):
     def __init__(self, *children):
         super().__init__(*children)
 
-        tmx_data = load_pyglet("sanguo/resource/smallbattle/water.tmx")
-        layer = tmx_data['layer1']
-        self.add(layer)
+
 
         layer = BattleLayer()
         self.add(layer)

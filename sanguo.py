@@ -16,17 +16,7 @@ BASEDIR = os.path.dirname(__file__)
 
 
 if __name__ == '__main__':
-<<<<<<< .mine
-    pyglet.resource.path = [os.path.join(BASEDIR,'sanguo/resource/sprites')]
 
-    pyglet.resource.reindex()
-    director.init(width=800,height=600)
-
-
-
-    scene = BattleScene()
-    # scene = MenuScene()
-=======
     pyglet.resource.path = [os.path.join(BASEDIR,'sanguo/resource'),os.path.join(BASEDIR,'sanguo/resource/smallbattle')]
 
     pyglet.resource.reindex()
@@ -36,5 +26,5 @@ if __name__ == '__main__':
 
     scene = BattleScene()
     # scene = MenuScene()
->>>>>>> .theirs
+
     director.run(scene)
