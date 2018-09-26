@@ -20,7 +20,7 @@ if __name__ == '__main__':
     pyglet.resource.path = [os.path.join(BASEDIR,'sanguo/resource'),os.path.join(BASEDIR,'sanguo/resource/smallbattle')]
 
     pyglet.resource.reindex()
-    director.init(width=800,height=600)
+    director.init(width=768,height=576)
 
 
 

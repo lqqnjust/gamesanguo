@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.6" orientation="orthogonal" renderorder="left-down" width="16" height="10" tilewidth="48" tileheight="48" infinite="0" nextobjectid="1">
+ <tileset firstgid="1" name="water_48" tilewidth="48" tileheight="48" tilecount="25" columns="5">
+  <image source="water_48.png" width="240" height="240"/>
+ </tileset>
+ <layer name="layer1" width="16" height="10">
+  <data encoding="csv">
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,22,1,2,3,1,
+1,2,23,22,2,3,1,2,3,1,2,3,1,23,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,2,3,1,2,3,1,2,3,1,2,3,1,2,3,1,
+1,1,2,1,2,3,1,2,3,1,2,3,1,2,3,1
+</data>
+ </layer>
+</map>
