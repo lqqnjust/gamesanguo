@@ -92,6 +92,24 @@ class GeneralModel(object):
         """
         self.state = GeneralStatus.DIE
 
+    def add_exp(self, exp):
+        """
+        经验增加
+        :param exp:
+        :return:
+        """
+        self.exp += exp
+
+    def level_up(self, level):
+        """
+        升级
+        :param level:
+        :return:
+        """
+        self.level = level
+
+
+
 
 class PowerModel(object):
     """
@@ -111,9 +129,6 @@ class PowerModel(object):
         :return:
         """
         self.inheritor = general
-
-
-
 
 
 class CityModel(object):
@@ -207,3 +222,4 @@ class GlobalModel(object):
     """
     def __init__(self):
         self.start_year: int = None
+        self.levels = [0,20,40,70,100,150,300]
