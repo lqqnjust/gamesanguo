@@ -2,8 +2,15 @@
 import csv
 import os
 import codecs
+from typing import List
 
-from sanguo.datamanager.models import *
+from .models import CityModel
+from .models import GeneralModel
+from .models import State_Dict
+from .models import GeneralModel
+from .models import PowerModel
+from .models import WeaponModel
+from .models import GlobalModel
 
 BASEDIR = os.path.dirname(os.path.dirname(__file__))
 

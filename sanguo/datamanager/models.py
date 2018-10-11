@@ -3,14 +3,19 @@ from typing import List
 from enum import Enum
 
 
-# 剑
-WEAPON_TYPE_SWORD = 0
-# 刀
-WEAPON_TYPE_KNIFE = 1
-# 矛
-WEAPON_TYPE_SPEAR = 2
-# 防具
-WEAPON_TYPE_ARMOR = 3
+
+class WeaponType(Enum):
+    """
+    武器类型
+    """
+    # 剑
+    SWORD = 0
+    # 刀
+    KNIFE = 1
+    # 矛
+    SPEAR = 2
+    # 防
+    ARMOR = 3
 
 
 class WeaponModel(object):
@@ -36,6 +41,7 @@ class WeaponModel(object):
     def __unicode__(self):
         return self.name
 
+
 class GeneralStatus(Enum):
     # 仕官
     OFFICE = 0
@@ -48,7 +54,6 @@ State_Dict = {
     "仕官": GeneralStatus.OFFICE,
     "在野": GeneralStatus.UNOFFICE
 }
-
 
 
 class GeneralModel(object):
@@ -185,7 +190,7 @@ class CityModel(object):
         else:
             return self.generals[0]
 
-    def power(self) -> PowerModel:
+    def get_power(self) -> PowerModel:
         """
         获取势力
         :return:
@@ -211,9 +216,6 @@ class CityModel(object):
         for general in self.generals:
             total += general.solders
         return total
-
-
-
 
 
 class GlobalModel(object):
