@@ -1,6 +1,7 @@
 # coding:utf-8
 from typing import List
 from enum import Enum
+import random
 
 
 
@@ -114,8 +115,6 @@ class GeneralModel(object):
         self.level = level
 
 
-
-
 class PowerModel(object):
     """
     势力
@@ -153,7 +152,7 @@ class CityModel(object):
         self.farming: int = 0
         # 经济贸易 0-999
         self.business: int = 0
-        # 人口 0-99900
+        # 人口 0-99900, 只存储去除00的部分。
         self.population: int = 0
         # 城防 0-100
         self.defence: int = 0
@@ -217,11 +216,97 @@ class CityModel(object):
             total += general.solders
         return total
 
+    def add_business(self, general: GeneralModel, money: int):
+        """
+        提升商业
+        :param general: 执行武将
+        :param money: 投入的资金
+        :return:
+        """
+        result = money * general.intelligence / 100 * random.randint(10, 17) /10
+        self.security += 1
+        if result >= 32:
+            self.security += 1
+        self.business += result
+        if self.business >= 999:
+            self.business = 999
+        return result
 
-class GlobalModel(object):
-    """
-    全局配置
-    """
-    def __init__(self):
-        self.start_year: int = None
-        self.levels = [0,20,40,70,100,150,300]
+    def add_farming(self, general: GeneralModel, money: int):
+        """
+        提升农业
+        :param general: 执行武将
+        :param money: 投入的资金
+        :return:
+        """
+        result = money * general.intelligence / 100 * random.randint(10, 17) /10
+        self.security += 1
+        if result >= 32:
+            self.security += 1
+        self.farming += result
+        if self.farming >= 999:
+            self.farming = 999
+        return result
+
+    @staticmethod
+    def money_need_for_develop(general: GeneralModel):
+        """
+        开发土地或产业需要的金钱
+        :param general:
+        :return:
+        """
+        if general.intelligence >= 81:
+            return random.choice([18, 20, 22, 24, 26])
+        elif general.intelligence >= 51:
+            return random.choice([14, 16, 18, 20, 22])
+        else:
+            return random.choice([10, 12, 14, 16, 18])
+
+    def gain_money(self):
+        """
+        4月收获金钱
+        """
+        B, C, D = self.get_level_coef()
+        A = self.get_coef_security()
+        money =  A * B * self.population * (1+self.business/D)
+        self.money += round(money)
+        if self.money > 9999:
+            self.money = 9999
+
+    def gain_food(self):
+        """
+        10月收获粮食
+        """
+        B, C, D = self.get_level_coef()
+        A = self.get_coef_security()
+        food =  A * C * self.population * (1+self.farming/D)
+        self.food += round(food)
+        if self.food > 9999:
+            self.food = 9999
+
+    def get_coef_security(self):
+        """
+        根据统治度计算系数
+        """
+        if self.security <= 50:
+            return 1.0
+        elif self.security <= 70:
+            return 1.2
+        elif self.security <= 80:
+            return 1.4
+        elif self.security <= 90:
+            return 1.8
+        elif self.security <= 99:
+            return 1.8
+        else:
+            return 2.0
+
+    def get_level_coef(self):
+        # level 1
+        #return 5/8, 5/6, 300
+        # level 2
+        # return 3/8 , 1/2 , 180
+        # level 3
+        return 3/8, 1/2, 240
+
+

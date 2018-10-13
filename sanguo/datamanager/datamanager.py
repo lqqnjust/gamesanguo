@@ -10,7 +10,7 @@ from .models import State_Dict
 from .models import GeneralModel
 from .models import PowerModel
 from .models import WeaponModel
-from .models import GlobalModel
+
 
 BASEDIR = os.path.dirname(os.path.dirname(__file__))
 
