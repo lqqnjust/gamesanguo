@@ -29,5 +29,56 @@ def army_layout(wuli, level):
     获取部队兵种分布
     :param wuli: 武力
     :param level: 等级
-    :return:
+    :return: 骑弓步比例
     """
+    if wuli < 50:
+        if level == 1:
+            return 0, 3, 7
+        elif level == 2:
+            return 0, 4, 6
+        elif level == 3:
+            return 1, 4, 5
+        elif level == 4:
+            return 2, 3, 5
+        elif level == 5:
+            return 2, 4, 4
+        elif level == 6:
+            return 3, 4, 3
+        elif level == 7:
+            return 4, 3, 3
+        elif level == 8:
+            return 4, 4, 2
+    elif wuli < 80:
+        if level == 1:
+            return 1, 2, 7
+        elif level == 2:
+            return 1, 3, 6
+        elif level == 3:
+            return 2, 3, 5
+        elif level == 4:
+            return 2, 3, 5
+        elif level == 5:
+            return 3, 3, 4
+        elif level == 6:
+            return 4, 3, 3
+        elif level == 7:
+            return 5, 3, 2
+        elif level == 8:
+            return 5, 4, 1
+    else:
+        if level == 1:
+            return 2, 3, 5
+        elif level == 2:
+            return 2, 4, 4
+        elif level == 3:
+            return 3, 3, 4
+        elif level == 4:
+            return 4, 3, 3
+        elif level == 5:
+            return 5, 3, 2
+        elif level == 6:
+            return 5, 4, 1
+        elif level == 7:
+            return 6, 3, 1
+        elif level == 8:
+            return 6, 4, 0
