@@ -15,8 +15,8 @@ class BattleScene(Scene):
 
 
 
-        # layer = BattleLayer()
-        # self.add(layer)
+        layer = BattleLayer()
+        self.add(layer)
         #
         # from sanguo.datamanager.datamanager import DataManager
         #
@@ -27,8 +27,8 @@ class BattleScene(Scene):
         #
         # infolayer = GeneralInfoLayer(generalmodel)
         # self.add(infolayer)
-        army_unit = ArmySprite(None,32,32,(255,255,255,255))
-        army_unit.position = 128,128
-        self.add(army_unit)
+        # army_unit = ArmySprite(None,32,32,(255,255,255,255))
+        # army_unit.position = 128,128
+        # self.add(army_unit)
 
 

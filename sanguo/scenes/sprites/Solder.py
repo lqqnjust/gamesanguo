@@ -33,41 +33,31 @@ class Solder(Sprite):
         self.unit_color = unit_color
         self.unit_level = unit_level
 
-        image_mov = pyglet.resource.image('solders/mov_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
-        image_atk = pyglet.resource.image('solders/atk_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
+        # image_mov = pyglet.resource.image('solders/mov_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
+        # image_atk = pyglet.resource.image('solders/atk_{}_{}_{}.png'.format(self.unit_type,self.unit_color, unit_level))
 
-        tileset = pyglet.image.ImageGrid(image_mov, 11, 1, 48, 48)
-        tileset_atk = pyglet.image.ImageGrid(image_atk, 12, 1, 64, 64)
+        image = pyglet.resource.image('solders/{}_{}_{}.png'.format(self.unit_type, self.unit_color,self.unit_level))
+
+        tileset = pyglet.image.ImageGrid(image, 7, 4, 64, 64)
+        # tileset_atk = pyglet.image.ImageGrid(image_atk, 12, 1, 64, 64)
 
         # move animation
-        self.ani_down = pyglet.image.Animation.from_image_sequence([tileset[9], tileset[4], tileset[10], tileset[4]],
-                                                                   0.2)
-        self.ani_left = pyglet.image.Animation.from_image_sequence(
-            [tileset[5], tileset[2],
-             tileset[6], tileset[2]], 0.2)
+        self.ani_atk_down = pyglet.image.Animation.from_image_sequence(tileset[24:28],0.2,False)
+        self.ani_atk_up = pyglet.image.Animation.from_image_sequence(tileset[20:24], 0.2,loop=False)
+        self.ani_atk_left = pyglet.image.Animation.from_image_sequence(tileset[16:20], 0.2,loop=False)
+        self.ani_atk_right = pyglet.image.Animation.from_image_sequence(tileset[12:16], 0.2,loop=False)
 
-        self.ani_right = self.ani_left.get_transform(flip_x=True)
-
-        self.ani_up = pyglet.image.Animation.from_image_sequence(
-            [tileset[7], tileset[3],
-             tileset[8], tileset[3]], 0.2)
-
+        
         # atk animation
-        self.ani_atk_down= pyglet.image.Animation.from_image_sequence(
-            [tileset_atk[11], tileset_atk[10],
-             tileset_atk[9], tileset_atk[8]], 0.2,loop=False)
+        self.ani_mov_down= pyglet.image.Animation.from_image_sequence(tileset[8:10], 0.2)
 
-        self.ani_atk_up= pyglet.image.Animation.from_image_sequence(
-            [tileset_atk[7], tileset_atk[6],
-             tileset_atk[5],tileset_atk[4]], 0.2,loop=False)
+        self.ani_mov_up= pyglet.image.Animation.from_image_sequence(tileset[10:12], 0.2)
 
-        self.ani_atk_left= pyglet.image.Animation.from_image_sequence(
-            [tileset_atk[3], tileset_atk[2],
-             tileset_atk[1],tileset_atk[0]], 0.2,loop=False)
+        self.ani_mov_left= pyglet.image.Animation.from_image_sequence(tileset[4:6], 0.2)
 
-        self.ani_atk_right = self.ani_atk_left.get_transform(flip_x=True)
+        self.ani_mov_right = pyglet.image.Animation.from_image_sequence(tileset[6:8], 0.2)
 
-        super().__init__(self.ani_up, position=position)
+        super().__init__(self.ani_atk_down, position=position)
         self.attack_flag = False
         self.set_direction(self.direction)
 
@@ -79,13 +69,13 @@ class Solder(Sprite):
         '''
         self.direction = direction
         if self.direction == DIRECTION_DOWN:
-            self.image = self.ani_down
+            self.image = self.ani_mov_down
         elif self.direction == DIRECTION_UP:
-            self.image = self.ani_up
+            self.image = self.ani_mov_up
         elif self.direction == DIRECTION_RIGHT:
-            self.image = self.ani_right
+            self.image = self.ani_mov_right
         elif self.direction == DIRECTION_LEFT:
-            self.image = self.ani_left
+            self.image = self.ani_mov_left
 
     def atk_ani(self, direction):
         '''
@@ -110,7 +100,7 @@ class Solder(Sprite):
         :return:
         '''
         if self.attack_flag is True:
-            self.image_anchor = 24, 24
+            self.image_anchor = 32, 32
             self.set_direction(self.direction)
             self.attack_flag = False
 
