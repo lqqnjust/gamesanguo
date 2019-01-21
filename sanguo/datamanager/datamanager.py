@@ -21,6 +21,7 @@ class DataManager(object):
         self.cities = []
         self.weapons = []
         self.powers: List[PowerModel] = []
+        #self.load()
 
     def load(self, record=None):
         """
@@ -123,11 +124,6 @@ class DataManager(object):
 
 
 
-    def load_record(self, record):
-        pass
-
-    def save_record(self, record):
-        pass
 
 
 datamanager = DataManager()
